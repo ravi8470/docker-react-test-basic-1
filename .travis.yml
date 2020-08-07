@@ -9,3 +9,16 @@ before_install:
 
 script:
   - docker run -e CI=true ravidocker22/docker-react-test-basic-1 npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-south-1"
+  env: "DockerReactTestBasic1-env"
+  app: "docker-react-test-basic-1"
+  #bucket_name is the s3 bucket where travis is going to put the zip of all our files
+  bucket_name: "elasticbeanstalk-ap-south-1-652320584847"
+  bucker_path: "docker-react-test-basic-1"
+  on:
+    branch: travis-setup
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
