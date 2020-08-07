@@ -1,0 +1,11 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  #tag name can be anything.. but tag must be used to grab the image built.
+  - docker build -t ravidocker22/docker-react-test-basic-1 -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true ravidocker22/docker-react-test-basic-1 npm run test -- --coverage
