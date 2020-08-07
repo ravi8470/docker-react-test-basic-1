@@ -6,6 +6,7 @@ COPY package.json .
 
 RUN npm install
 
+#copy step can be omitted in case we are using volumes with docker-compose file
 COPY . .
 
 CMD ["npm", "start"]
