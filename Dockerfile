@@ -1,11 +1,11 @@
 
 #for deploying in prod, it becomes a two step process of generating build files and then hosting them using nginx
 ###Build Stage using npm run build
-FROM node:alpine AS build-stage
+FROM node:alpine
 
 WORKDIR /app
 
-COPY package.json .
+COPY package*.json ./
 
 RUN npm install
 
@@ -24,6 +24,6 @@ FROM nginx:1.19.1
 #expose is added for aws beanstalk to expose that port
 EXPOSE 80
 
-COPY --from=build-stage /app/build /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
 
 #After this just build this image and run it with port bindings.. default nginx port is 80
